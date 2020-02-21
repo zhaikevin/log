@@ -1,0 +1,51 @@
+server:
+  port: 9090
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /log-server/
+
+foundation:
+  project:
+    name: log
+    env: dev
+
+spring:
+  mvc:
+    static-path-pattern: /log-server/**
+  resources:
+    static-locations: classpath:/static
+  application:
+    name: log-server
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/admin_dev?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.github.log.server.model
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 通用 Mapper 配置
+mapper:
+  mappers: com.github.foundation.datasource.mapper.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+logging:
+  level:
+     com.github.foundation: debug
+     com.github.log: debug
