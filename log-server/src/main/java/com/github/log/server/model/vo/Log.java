@@ -1,6 +1,5 @@
 package com.github.log.server.model.vo;
 
-import com.github.foundation.es.annotations.Document;
 import com.github.foundation.es.annotations.Id;
 import lombok.Data;
 
@@ -9,7 +8,6 @@ import lombok.Data;
  * @Author: kevin
  * @Date: 2019/11/12 11:28
  */
-@Document(indexName = "log-2020.04.19-jsd-mgmt")
 @Data
 public class Log {
 

@@ -39,7 +39,7 @@ public class LogController {
                            @RequestParam(value = "ip", required = false) String ip,
                            @RequestParam(value = "message", required = false) String message) {
         SearchParams searchParams = new SearchParams.Builder().page(pageNum).size(pageSize).project(project)
-                .ip(ip).message(message).build();
+                .ip(ip).message(message).date(date).build();
         return ResultInfo.success(logService.searchByPage(searchParams));
     }
 }

@@ -12,4 +12,6 @@ public class Consts {
     public static final String PROJECT_FIELD = "fields.project";
 
     public static final String MESSAGE_FIELD = "message";
+
+    public static final String INDEX_PRE = "log-";
 }
