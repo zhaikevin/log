@@ -9,6 +9,8 @@ foundation:
   project:
     name: log
     env: dev
+  admin:
+    url: http://localhost:9080/admin-server
 
 spring:
   mvc:
