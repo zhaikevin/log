@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日志管理</title>
+    <link rel="stylesheet" type="text/css" href="../../element-ui/css/index.css">
+    <script type="text/javascript" src="../../element-ui/js/vue.js"></script>
+    <script type="text/javascript" src="../../element-ui/js/vue-resource.min.js"></script>
+    <script type="text/javascript" src="../../element-ui/js/index.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-container style="height: auto; border: 1px solid #eee;">
+        <el-main>
+            <el-form :inline="true" ref="form" :model="form" class="demo-form-inline">
+                <el-form-item label="项目:">
+                    <el-select v-model="form.project" placeholder="请选择项目" @change="getIps">
+                        <el-option v-for="item in projects"
+                                   :key="item.code"
+                                   :label="item.code"
+                                   :value="item.code"/>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="IP:">
+                    <el-select v-model="form.ip" placeholder="请选择IP">
+                        <!--<el-option :key="" :label="全部" :value=""/>-->
+                        <el-option v-for="item in ips"
+                                   :key="item"
+                                   :label="item"
+                                   :value="item"/>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="日期:">
+                    <el-date-picker v-model="form.date" type="date" placeholder="请选择日期">
+                    </el-date-picker>
+                </el-form-item>
+
+                <el-form-item label="关键字">
+                    <el-input v-model="form.message" placeholder="请输入关键字"/>
+                </el-form-item>
+
+                <!-- 查询按钮 -->
+                <el-form-item>
+                    <el-button type="primary" size="small" @click="onQuerySubmit" icon="el-icon-search"
+                               style="margin-left: 20px">查&nbsp;询
+                    </el-button>
+                </el-form-item>
+            </el-form>
+
+            <el-table
+                    v-loading="listLoading"
+                    :data="tableData"
+                    :show-header=false
+                    element-loading-text="加载中..."
+                    border
+                    stripe
+                    style="width: 100%">
+                <el-table-column prop="message" align="left"/>
+            </el-table>
+            <el-row v-if=showMore style="text-align:center;margin-bottom: 15px;margin-top: 20px">
+                <a style="text-align:center;text-decoration:underline;color:#72ACE3"  @click="handleMore()"> 加载更多...  </a>
+            </el-row>
+
+        </el-main>
+    </el-container>
+</div>
+<script type="text/javascript" src="../../js/log/logManager.js"></script>
+</body>
+</html>

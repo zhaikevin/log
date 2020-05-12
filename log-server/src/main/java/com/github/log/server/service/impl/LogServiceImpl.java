@@ -11,8 +11,14 @@ import com.github.log.server.service.LogService;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description:
@@ -27,7 +33,10 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public Page<Log> searchByPage(SearchParams searchParams) {
-        Pageable pageable = PageRequest.of(searchParams.getPage(), searchParams.getSize());
+        String timestamp = "@timestamp";
+        List<SortBuilder<?>> sortList = new ArrayList<>();
+        sortList.add(new FieldSortBuilder(timestamp).order(SortOrder.DESC));
+        Pageable pageable = PageRequest.of(searchParams.getPage(), searchParams.getSize(),sortList);
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
         queryBuilder.must(QueryBuilders.matchQuery(Consts.PROJECT_FIELD, searchParams.getProject()));
         if (StringUtils.isNotEmpty(searchParams.getIp())) {
